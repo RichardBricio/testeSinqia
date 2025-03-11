@@ -5,7 +5,7 @@ Esse framework de teste automatizado utiliza Selenium Webdriver, Junit4, Cucumbe
 
 ## No projeto também é possível encontrar:
 
--Auto gerenciamento para diferentes tipos de WebDrivers(UE, FIREFOX, Chrome e etc).
+-Auto gerenciamento para diferentes tipos de WebDrivers(IE, FIREFOX, Chrome e etc).
 
 -Uso de design pattern.
 
@@ -15,6 +15,7 @@ Esse framework de teste automatizado utiliza Selenium Webdriver, Junit4, Cucumbe
 
 -Identação de código e fácil manutenção.
 
+-Centralização de log e execution pass/fail.
 
 ## Foi criado duas features de teste:
 
