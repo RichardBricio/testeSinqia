@@ -1,15 +1,16 @@
 package steps;
 
-import java.io.IOException;
 import common.drivers.DriverType;
 import common.utils.DriverUtils;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
+
+import java.io.IOException;
 
 public class CommonSteps {
 
@@ -18,7 +19,7 @@ public class CommonSteps {
 	static WebDriverWait wait;
 
 	@Test
-	@Given("^That I am using the browser (CHROME|IE|FIREFOX)$")
+	@Given("^Que eu esteja usando o navegador (CHROME|IE|FIREFOX)$")
 	public void selectDriver(String browser) throws Throwable {		
 		try{
 			logger.info("------ STARTING BATTERY OF TESTS ----------");
@@ -53,7 +54,7 @@ public class CommonSteps {
         }
 	}
 
-	@Given("Test case: {string}")
+	@Given("Teste: {string}")
 	public void testCase(String testCase) throws Throwable {
 		DriverUtils.initExtentReport(testCase);
 	}

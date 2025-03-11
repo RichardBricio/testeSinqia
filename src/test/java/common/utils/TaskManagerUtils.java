@@ -1,10 +1,6 @@
 package common.utils;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class TaskManagerUtils {
 	public static boolean isRunning(String process) {
@@ -12,7 +8,7 @@ public class TaskManagerUtils {
 		try {
 			File file = File.createTempFile("realhowto",".vbs");
 			file.deleteOnExit();
-			FileWriter fw = new java.io.FileWriter(file);
+			FileWriter fw = new FileWriter(file);
 
 			String vbs = "Set WshShell = WScript.CreateObject(\"WScript.Shell\")\n"
 					+ "Set locator = CreateObject(\"WbemScripting.SWbemLocator\")\n"

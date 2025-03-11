@@ -1,42 +1,31 @@
 package common.utils;
 
-import java.awt.AWTException;
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import com.aventstack.extentreports.reporter.configuration.Theme;
+import common.drivers.DriverManager;
+import common.drivers.DriverType;
+import common.hooks.Hooks;
+import io.cucumber.java.Scenario;
+import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.Assert;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.Normalizer;
 import java.time.Duration;
 import java.util.List;
-import common.drivers.DriverManager;
-import common.drivers.DriverType;
-import common.hooks.Hooks;
-import org.apache.commons.io.FileUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.junit.Assert;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.Point;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.UnhandledAlertException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.reporter.ExtentSparkReporter;
-import com.aventstack.extentreports.reporter.configuration.Theme;
-
-import io.cucumber.java.Scenario;
 
 public class DriverUtils {
 
@@ -85,9 +74,7 @@ public class DriverUtils {
         extent = extReports;
     }
 
-    public static ExtentTest getExtentTest() {
-        return extentTest;
-    }
+    public static ExtentTest getExtentTest() { return extentTest; }
 
     public static void setExtentReport(ExtentTest extTest) {
         extentTest = extTest;
@@ -135,7 +122,6 @@ public class DriverUtils {
             logger.info("STARTING IMPLICIT WAITING ON THE OBJECT: " + element.toString());
             el = wait.until(ExpectedConditions.elementToBeClickable((WebElement) element));
         } catch (RuntimeException e) {
-//            Utils.checkErrors();
             logger.error(e.getMessage());
         }
         return el;
@@ -216,9 +202,6 @@ public class DriverUtils {
             Assert.fail("Unable to click on the WebElement, Exception: " + e.getMessage());
         }
     }
-
-    /**********************************************************************************/
-    /**********************************************************************************/
 
     /**********************************************************************************
      ** ACTION METHODS
@@ -316,6 +299,7 @@ public class DriverUtils {
     public static void closeBrowser() throws IOException, InterruptedException {
         driver.manage().deleteAllCookies();
         driver.quit();
+        Runtime.getRuntime().exec("taskkill /F /IM chromedriver.exe");
         if (Hooks.getRunningDriver() == DriverType.CHROME)
             TaskManagerUtils.killProcess("chromedriver.exe");
     }
@@ -355,9 +339,6 @@ public class DriverUtils {
         }
     }
 
-    /**********************************************************************************/
-    /**********************************************************************************/
-
     /**********************************************************************************
      ** SEND KEYS METHODS /
      **********************************************************************************/
@@ -374,9 +355,6 @@ public class DriverUtils {
             Assert.fail("Unable to send keys to WebElement, Exception: " + e.getMessage());
         }
     }
-
-    /**********************************************************************************/
-    /**********************************************************************************/
 
     /**********************************************************************************
      ** JS METHODS & JS SCROLL
@@ -434,9 +412,6 @@ public class DriverUtils {
         js.executeScript("arguments[0].click();", element);
     }
 
-    /**********************************************************************************/
-    /**********************************************************************************/
-
     /**********************************************************************************
      ** WAIT METHODS
      **********************************************************************************/
@@ -491,10 +466,6 @@ public class DriverUtils {
         return wait.until(ExpectedConditions.invisibilityOfElementLocated(element));
     }
 
-
-    /**********************************************************************************/
-    /**********************************************************************************/
-
     /**********************************************************************************
      ** PAGE METHODS
      **********************************************************************************/
@@ -525,9 +496,6 @@ public class DriverUtils {
             return e.getMessage();
         }
     }
-
-    /**********************************************************************************/
-    /**********************************************************************************/
 
     /**********************************************************************************
      ** ALERT & POPUPS METHODS
@@ -584,9 +552,6 @@ public class DriverUtils {
         }
     }
 
-    /**********************************************************************************/
-    /**********************************************************************************/
-
     /**********************************************************************************
      ** REPORT
      **********************************************************************************/
@@ -609,12 +574,6 @@ public class DriverUtils {
         }
         return string;
     }
-
-    // public void attachScreenShotTest() throws IOException {
-    //     ExtentTest test = extent.createTest("First Test");
-    //     test.pass("Test Started", MediaEntityBuilder.createScreenCaptureFromPath(getScreentShotExtentPath()).build());
-    //     test.pass("Test Finished");
-    // }
 
     public static String getScreentShotExtentPath() throws IOException {
         File source = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);

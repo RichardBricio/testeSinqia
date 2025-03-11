@@ -1,8 +1,9 @@
 package common.drivers;
 
-import java.net.MalformedURLException;
-import org.openqa.selenium.WebDriver;
 import common.hooks.Hooks;
+import org.openqa.selenium.WebDriver;
+
+import java.net.MalformedURLException;
 
 public class DriverManager {
 
