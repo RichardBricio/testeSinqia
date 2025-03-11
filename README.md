@@ -1,7 +1,7 @@
 # Projeto dedicado ao teste da Sinqia
 ## Vaga de Analista de Automação
 
-Esse framework de teste automatizado utiliza Selenium Webdriver, Junit4, Cucumber, Testng e ExtentReports para realizar os testes. 
+Esse framework de teste automatizado utiliza Selenium Webdriver, Junit, Cucumber, Testng e ExtentReports para realizar os testes. 
 
 ## No projeto também é possível encontrar:
 
